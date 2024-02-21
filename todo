@@ -1,0 +1,153 @@
+// Executor currently works with the following struct:
+
+typedef struct s_commands
+{
+	char		*cmd;
+	char		**args;
+	bool		pipe;
+	t_commands	*next;
+	t_commands	*prev;
+	t_data_fd	*fd_data;
+}		t_commands;
+
+// It is a linked list containing all the commands that are seperated by PIPES
+
+	char		*cmd;
+// contains the argument to be ran. because of how **args works, this is not neccesary. if we want to keep it reccomend having cmd = args[0] or removing
+	char		**args;
+// array that contains all the arguments to the command. Keep in mind that the first argument to a command is the command name itself
+	bool		pipe;
+// wether or not this command is being pipe. Probably not neccessary: If a command is being piped, s_commands->next should exist, if it is not being piped that shoul be NULL
+	t_commands	*next;
+	t_commands	*prev;
+// next and previous commands in the linked list
+	t_data_fd	*fd_data;
+// the filedescriptor struct, containing information about the filedescriptors of the in/outfiles. it looks like this:
+
+typedef struct s_data_fd
+{
+	char	*infile;
+	char	*outfile;
+	int		fd_in;
+	int		fd_out;
+	char	*delim_hd;
+	bool	*quotes_hd;
+}	t_data_fd;
+
+	char	*infile;
+// file path of the infile. Not needed by the executor if we open the infile before, only need the filedescriptor
+	char	*outfile;
+// file path of the outfile Not needed by the executor if we open the infile before, only need the filedescriptor
+	int		fd_in;
+// file descriptor of the infile. should be set to -1 if there is on infile
+	int		fd_out;
+// file descriptor of the outfile. should be set to -1 if there is on infile
+	char	*delim_hd;
+// Previous partner made this, executor does not use it (yet)
+	bool	*quotes_hd;
+// Previous partner made this, executor does not use it (yet)
+
+
+
+// So our parser needs to take a line such as the following:
+grep -o "\b[[:alpha:]]*\b" < words.txt | sed '/^$/d' | sort | uniq -c > output.txt ;
+// And break it down into the following:
+
+struct one
+{
+	cmd = "grep";
+	args = {"grep", "-o", "\b[[:alpha:]]*\b"};
+	pipe = TRUE;
+	next = two;
+	prev = NULL;
+	fd_data = fd_struct;
+};
+
+struct two
+{
+	cmd = "sed";
+	args = {"sed", "/^$/d"};
+	pipe = TRUE;
+	next = three;
+	prev = one;
+	fd_data = fd_struct;
+};
+
+struct three
+{
+	cmd = "sort";
+	args = {"sort"};
+	ipe = TRUE;
+	next = four;
+	prev = three;
+	fd_data = fd_struct;
+};
+
+struct four
+{
+	cmd = "uniq";
+	args = {"uniq", "-c"};
+	pipe = FALSE;
+	next = NULL;
+	prev = three;
+	fd_data = fd_struct;
+};
+
+// and the fd struct:
+struct fd_struct
+{
+	infile = "words.txt";
+	outfile = "output.txt";
+	fd_in = open(infile);
+	fd_out = open(outfile);
+	delim_hd;
+	quotes_hd;
+};
+
+/* Things to keep in mind: */
+
+// Using single ('') and double ("") quotes has different behaviours when it comes to expanding variables.
+// The executor currently does not handle expansion itself: its expectets the parser to do this. meaning that with double quotes:
+export VAR=test;
+echo "$VAR";
+// the command struct should be as follows:
+struct command
+{
+	cmd = "echo";
+	args = {"echo", "test"};
+...
+}
+// but with single quotes:
+export VAR=test;
+echo '$VAR';
+// it should look like this
+struct command
+{
+	cmd = "echo";
+	args = {"echo", "$VAR"};
+...
+}
+
+
+// the executor does not use the t_commands->cmd at all, because the first argument in t_commands->args NEEDS to be the same. Reccomend removing it
+
+
+// I cant quite remember what the
+	char	*delim_hd;
+	bool	*quotes_hd;
+// were used for, but the executor does not use it. reccomend removing it
+
+
+// I assumed that one command cannot have more than one in and outfile, only at the first and last commands in a pipe. otherwise you are connecting two inputs or outputs to a command. this might be wrong, i am not sure
+
+
+// the executor does NOT handle opening the in and outfiles, this is done by the parser as well. reccomend removing
+	char	*infile;
+	char	*outfile;
+// from the fildescriptor struct, or changing the executor to handle opening/closing and removing
+	int		fd_in;
+	int		fd_out;
+// instead
+
+
+// the parser does NOT need to check if a command is valid/exists. The executor does this
