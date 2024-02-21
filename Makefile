@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/02/20 15:33:30 by rmaes         ########   odam.nl          #
+#    Updated: 2024/02/21 12:13:00 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,22 @@ ENVP_FILES = envp.c ft_getenv.c
 ENVP_DIR = envp/
 ENVP_DF = $(addprefix $(ENVP_DIR), $(ENVP_FILES))
 
+#builtins
+BUILTIN_FILES = echo.c env.c unset.c export.c pwd.c cd.c exit.c
+BUILTIN_DIR = builtins/
+BUILTIN_DF = $(addprefix $(BUILTIN_DIR), $(BUILTIN_FILES))
+
 #executor files
 EXECUTOR_FILES = $(BUILTIN_DF) executor.c executor_utils.c redirect.c
 EXECUTOR_DIR = executor/
 EXECUTOR_DF = $(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
+
+SOURCES_DIR = sources/
+FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF)
+SOURCES = $(addprefix $(SOURCES_DIR), $(FILES))
+
+INCLUDES = includes -I/Users/rmaes/.brew/opt/readline/include
+
 
 OBJECTS_DIR = objects/
 OBJECTS = $(addprefix $(OBJECTS_DIR), $(FILES:.c=.o))

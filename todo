@@ -157,3 +157,6 @@ struct command
 // it does NOT handle expansion itself! The env struct is a doubly linked list that I made a small library for: the cdl_list library. this one is specifically made to work with the env. 
 // all functions needed to create and work with the struct should already be made
 // the function to create the struct still need to be called in main/somewhere before execution, the executor does NOT create it.
+
+
+// With the change to linux, the MakeFile is sure to need some work as well.
