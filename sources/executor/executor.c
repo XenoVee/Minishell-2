@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/24 15:06:32 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/12 11:32:14 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/02/22 13:21:23 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <stdio.h>
+#include <sys/wait.h>
 
 // if/elseifs to check if the command is a builtin. A builtin cannot be piped
 static int	builtin(t_commands *cmd, t_dllist *env)

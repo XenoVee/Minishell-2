@@ -138,16 +138,23 @@ struct command
 // were used for, but the executor does not use it. reccomend removing it
 
 
-// I assumed that one command cannot have more than one in and outfile, only at the first and last commands in a pipe. otherwise you are connecting two inputs or outputs to a command. this might be wrong, i am not sure
+// The current filedescriptor setup is not sufficient, as multiple in and outfiles are possible, which this does not support. A command chain can have only one infile:
+// the following command as example:
+grep "text" < infile.txt | rev | cut -c 2- < infile2.txt | sort
+// In bash, the cut command will ignore any input from the pipe, as it takes it input from the infile 'file2.txt'
+// we can NOT forgo running any of the commands before that command, however:
 
+// one command chain can use multiple outfiles:
+// the following command as example
+grep "text" < infile.txt | rev > outfile1.txt | cut -c 2- < infile2.txt | sort > outfile2.txt;
+// the rev command will put its output into the file 'outfile1.txt', and not into the pipe.
+// the cut command will then take its input from the file 'file2.txt', instead of the pipe.
+// this is a way to chain commands without using ';' or '&&'
+// we should decide if we want to handle this the same way that bash does. If we do, each command will need its own in and outfile file descriptors
 
-// the executor does NOT handle opening the in and outfiles, this is done by the parser as well. reccomend removing
-	char	*infile;
-	char	*outfile;
-// from the fildescriptor struct, or changing the executor to handle opening/closing and removing
-	int		fd_in;
-	int		fd_out;
-// instead
+// another oddity with in and outfiles: multiple files on one simple command:
+cat < infile1.txt < infile2.txt > outfile1.txt > outfile2.txt;
+// only the last infile is used. All outfiles are used, however. outfile file descriptors may need to be stored in a list?
 
 
 // the parser does NOT need to check if a command is valid/exists. The executor does this, and commands will handle faulty arguments themselves

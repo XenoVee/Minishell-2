@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_isnegative.c                                    :+:    :+:            */
+/*   ft_is_negative.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 18:39:07 by rmaes         #+#    #+#                 */
-/*   Updated: 2022/10/20 18:40:15 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/02/22 13:21:47 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_is_negative(unsigned long n)
+int	ft_is_negative(long n)
 {
 	if (n < 0)
 		return (1);

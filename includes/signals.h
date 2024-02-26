@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_null_array.c                                    :+:    :+:            */
+/*   signals.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/08 17:28:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2022/11/14 18:13:00 by rmaes         ########   odam.nl         */
+/*   Created: 2024/02/23 15:58:05 by rmaes         #+#    #+#                 */
+/*   Updated: 2024/02/23 15:58:25 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_null_array(void *array, int len)
-{
-	int	i;
-	int	*p;
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-	i = 0;
-	p = &array[0];
-	while (i < len)
-	{
-		p[i] = 0;
-		i++;
-	}
-}
+void	toggle_intercept(int toggle);
+
+#endif

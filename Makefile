@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/02/21 12:13:00 by rmaes         ########   odam.nl          #
+#    Updated: 2024/02/23 16:00:43 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,11 @@ YELLOW = \033[0;93m
 MAIN_FILES = main.c 
 MAIN_DIR = main/
 MAIN_DF = $(addprefix $(MAIN_DIR), $(MAIN_FILES))
+
+#signals files
+SIGNALS_FILES = signals.c 
+SIGNALS_DIR = signals/
+SIGNALS_DF = $(addprefix $(SIGNALS_DIR), $(SIGNALS_FILES))
 
 #utils files
 UTILS_FILES = error.c
@@ -44,7 +49,7 @@ EXECUTOR_DIR = executor/
 EXECUTOR_DF = $(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 
 SOURCES_DIR = sources/
-FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF)
+FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF) $(SIGNALS_DF)
 SOURCES = $(addprefix $(SOURCES_DIR), $(FILES))
 
 INCLUDES = includes -I/Users/rmaes/.brew/opt/readline/include
@@ -53,8 +58,8 @@ INCLUDES = includes -I/Users/rmaes/.brew/opt/readline/include
 OBJECTS_DIR = objects/
 OBJECTS = $(addprefix $(OBJECTS_DIR), $(FILES:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror
-CC = gcc -g
+CFLAGS = -g -Wall -Wextra -Werror
+CC = gcc
 NAME = minishell
 
 LIBFT_FOLDER = libraries/libftprintf/
@@ -69,8 +74,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT) $(LIST)
 	@echo "compiling: $(YELLOW)creating executable$(DEFAULT)"
-#	 @$(CC) -o $@ $^ -lreadline -L/opt/homebrew/opt/readline/lib
-	@$(CC) -o $@ $^ -lreadline -L/Users/rmaes/.brew/opt/readline/lib
+	@$(CC) -o $@ $^ -lreadline
 	@echo "$(GREEN)$@ successfully compiled!$(DEFAULT)"
 
 $(OBJECTS_DIR):

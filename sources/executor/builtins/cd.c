@@ -6,12 +6,11 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/25 13:21:34 by rmaes         #+#    #+#                 */
-/*   Updated: 2023/07/03 16:38:52 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/02/22 13:20:40 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <libc.h>
 #include "error.h"
 
 static void	setpwd(t_dllist *env, char *n)
