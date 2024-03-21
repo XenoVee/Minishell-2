@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/23 15:58:55 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/03/21 14:01:06 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int	manage_input(void)
 	add_history(input);
 	toggle_intercept(ON);
 	if (!ft_strcmp(input, "exit"))
+	{
+		free (input);
 		return (1);
+	}
 	printf("|%s|\n", input);
 	free (input);
 	return (0);
