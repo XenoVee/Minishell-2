@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/30 15:25:50 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/12 11:52:21 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/03/21 13:59:11 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,6 @@ void	startpipe(t_commands *cmd, int *pipenew, int *pipeold)
 		close(pipenew[1]);
 	}
 }
+// handling multiple oufiles... Execve can only write into one FD.
+// Write into pipe, then copy from pipe to file?
+// send file to execve, copy from that file into the other files if theres more?
