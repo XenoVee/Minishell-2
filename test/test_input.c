@@ -105,10 +105,52 @@ void test_two_cmd(void)
     free_cmds_memory(cmds);
 }
 
-int main(void)
+void test_with_print(char *input)
 {
-    test_empty_cmd();
-    test_single_cmd();
-    test_two_cmd();
+    t_commands *cmds = input_parse(input);
+    int i=0;
+
+    printf("Test for command: %s\n", input);
+    while (1)
+    {
+        printf("command %d str = %s\n", i, cmds[i].str);
+        printf("command %d cmd = %s\n", i, cmds[i].cmd);
+
+        int j=0;
+        while (cmds[i].args[j])
+        {
+            printf("command %d argument %d, value = %s\n", i, j, cmds[i].args[j]);
+            j++;
+        }
+
+        printf("command %d pipe= %d\n", i, cmds[i].pipe);
+        printf("command %d next= 0x%x\n", i, cmds[i].next);
+        printf("command %d prev= 0x%x\n", i, cmds[i].prev);
+        printf("command %d fd_input= %d\n", i, cmds[i].fd_input);
+    
+        j=0;
+        if (cmds[i].fd_output)
+        {
+            while (cmds[i].fd_output[j])
+            {
+                printf("command %d fd %d, value = %d\n", i, j, cmds[i].fd_output[j]);
+                j++;
+            }
+        }
+
+        if (cmds[i].next == 0)
+        {
+            break;
+        }
+
+        i++;
+        printf("\n\n");
+    }
+}
+
+int main(int argc, char **argv)
+{
+    test_with_print("grep    abc   123  <            /home/marghoob/rmaes_taj_minishell/test/abc  > xyz >   xyz1 |   grep taj 1>        ghijj  >   aw  >   qt    ");
+    //test_with_print(argv[1]);
     return (0);
 }

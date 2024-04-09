@@ -36,12 +36,14 @@ typedef struct s_data_fd
 
 typedef struct s_commands
 {
+	char				*str;
 	char				*cmd;
 	char				**args;
 	bool				pipe;
 	struct s_commands	*next;
 	struct s_commands	*prev;
-	t_data_fd			*fd_data;
+	int 				fd_input;
+	int 				*fd_output;
 }		t_commands;
 
 #endif
