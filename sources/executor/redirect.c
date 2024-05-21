@@ -35,9 +35,9 @@ void	endpipe(t_commands *cmd, int *pipenew, int *pipeold)
 // pipe: array of two file descriptors. pipe[0] is read, pipe[1] is write
 void	startpipe(t_commands *cmd, int *pipenew, int *pipeold)
 {
-	if (cmd->fd_data->fd_in != -1)
+	if (cmd->fd_input != -1)
 	{
-		dup2(cmd->fd_data->fd_in, STDIN);
+		dup2(cmd->fd_input, STDIN);
 		close(pipeold[1]);
 	}
 	else if (cmd->prev)
@@ -46,10 +46,10 @@ void	startpipe(t_commands *cmd, int *pipenew, int *pipeold)
 		close(pipeold[0]);
 		close(pipeold[1]);
 	}
-	if (cmd->fd_data->fd_out != -1)
+	if (cmd->fd_output)
 	{
 		close(pipenew[0]);
-		dup2(cmd->fd_data->fd_out, STDOUT);
+		dup2(cmd->fd_output[0], STDOUT);
 	}
 	else if (cmd->next)
 	{

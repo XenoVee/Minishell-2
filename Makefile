@@ -23,6 +23,15 @@ MAIN_FILES = main.c
 MAIN_DIR = main/
 MAIN_DF = $(addprefix $(MAIN_DIR), $(MAIN_FILES))
 
+#input parser files
+INPUT_PARSER_FILES = input_parse.c \
+					 input_parse.c \
+					 input_parse_util.c \
+					 input_parse_pipes.c \
+					 input_parse_redirection.c
+INPUT_PARSER_DIR = input/
+INPUT_PARSER_DF = $(addprefix $(INPUT_PARSER_DIR), $(INPUT_PARSER_FILES))
+
 #signals files
 SIGNALS_FILES = signals.c 
 SIGNALS_DIR = signals/
@@ -49,10 +58,10 @@ EXECUTOR_DIR = executor/
 EXECUTOR_DF = $(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 
 SOURCES_DIR = sources/
-FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF) $(SIGNALS_DF)
+FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF) $(SIGNALS_DF) $(INPUT_PARSER_DF) input/ft_split.c
 SOURCES = $(addprefix $(SOURCES_DIR), $(FILES))
 
-INCLUDES = includes -I/Users/rmaes/.brew/opt/readline/include
+INCLUDES = includes -I/Users/rmaes/.brew/opt/readline/include -Ilibraries/libftprintf
 
 
 OBJECTS_DIR = objects/
@@ -90,6 +99,17 @@ $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@mkdir -p $(@D)
 	@echo "compiling: $(YELLOW)$@$(DEFAULT)"
 	@$(CC) -c $(CFLAGS) -I $(INCLUDES) -o $@ $^
+
+test: 
+	@$(CC) test/test_input.c \
+	sources/input/input_parse.c \
+	sources/input/input_parse_util.c \
+	sources/input/input_parse_pipes.c \
+	sources/input/input_parse_redirection.c \
+	sources/input/ft_split.c \
+	-Iincludes/ \
+	-Ilibraries/libftprintf \
+	-Wall -Wextra -Werror -g
 
 clean:
 	@echo "cleaning:  $(RED)removing object files$(DEFAULT)"

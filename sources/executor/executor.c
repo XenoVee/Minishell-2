@@ -25,8 +25,8 @@ static int	builtin(t_commands *cmd, t_dllist *env)
 	int	fd;
 
 	fd = 2;
-	if (!cmd->next && !cmd->prev && cmd->fd_data && cmd->fd_data->fd_out != -1)
-		fd = cmd->fd_data->fd_out;
+	if (!cmd->next && !cmd->prev && cmd->fd_output)
+		fd = cmd->fd_output[0];
 	if (!ft_strcmp("echo", cmd->args[0]))
 		bi_echo(cmd, fd);
 	else if (!ft_strcmp("cd", cmd->args[0]))
@@ -55,6 +55,7 @@ static void	child(t_commands *cmd, int *pipenew, int *pipeold, t_dllist *env)
 	char	*path;
 	char	**envp;
 
+	envp = NULL;
 	startpipe(cmd, pipenew, pipeold);
 	if (builtin(cmd, env))
 		exit(0);
@@ -63,9 +64,10 @@ static void	child(t_commands *cmd, int *pipenew, int *pipeold, t_dllist *env)
 		path = pathfinder(cmd->args[0]);
 		if (path == NULL)
 			exit(1);
-		envp = arrayize(env);
 		if (access(path, X_OK) != 0)
 			exit(2);
+		if (env)
+			envp = arrayize(env);
 		if (execve(path, cmd->args, envp) == -1)
 			perror("minishell");
 		exit(1);
@@ -84,8 +86,8 @@ static int	execute(t_commands *cmd, t_dllist *env, int *pipenew, int *pipeold)
 		child(cmd, pipenew, pipeold, env);
 	else
 	{
-		endpipe(cmd, pipenew, pipeold);
 		wait(NULL);
+		endpipe(cmd, pipenew, pipeold);
 	}
 	return (0);
 }

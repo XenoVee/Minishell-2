@@ -1,0 +1,209 @@
+taj@Ubuntu20:make test -B
+taj@Ubuntu20:./a.out 
+
+
+Test for command: 
+input_parse function returned NULL cmds structure
+
+
+Test for command: ls
+command 0 str = ls
+command 0 cmd = ls
+command 0 argument 0, value = ls
+command 0 pipe= 0
+command 0 next= (nil)
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+Test for command: ls -ltr
+command 0 str = ls -ltr
+command 0 cmd = ls
+command 0 argument 0, value = ls
+command 0 argument 1, value = -ltr
+command 0 pipe= 0
+command 0 next= (nil)
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+Test for command: ls -ltr | grep abc
+command 0 str = ls -ltr 
+command 0 cmd = ls
+command 0 argument 0, value = ls
+command 0 argument 1, value = -ltr
+command 0 pipe= 1
+command 0 next= 0x64c5cb1497c0
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+command 1 str =  grep abc
+command 1 cmd = grep
+command 1 argument 0, value = grep
+command 1 argument 1, value = abc
+command 1 pipe= 0
+command 1 next= (nil)
+command 1 prev= 0x64c5cb149780
+command 1 fd_input= -1
+command 1 fd_output= (nil)
+
+
+Test for command: ls -ltr | grep abc | grep cde
+command 0 str = ls -ltr 
+command 0 cmd = ls
+command 0 argument 0, value = ls
+command 0 argument 1, value = -ltr
+command 0 pipe= 1
+command 0 next= 0x64c5cb1498d0
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+command 1 str =  grep abc 
+command 1 cmd = grep
+command 1 argument 0, value = grep
+command 1 argument 1, value = abc
+command 1 pipe= 1
+command 1 next= 0x64c5cb149910
+command 1 prev= 0x64c5cb149890
+command 1 fd_input= -1
+command 1 fd_output= (nil)
+
+
+command 2 str =  grep cde
+command 2 cmd = grep
+command 2 argument 0, value = grep
+command 2 argument 1, value = cde
+command 2 pipe= 0
+command 2 next= (nil)
+command 2 prev= 0x64c5cb1498d0
+command 2 fd_input= -1
+command 2 fd_output= (nil)
+
+
+Test for command: ls -ltr | grep abc | grep cde > file.txt
+command 0 str = ls -ltr 
+command 0 cmd = ls
+command 0 argument 0, value = ls
+command 0 argument 1, value = -ltr
+command 0 pipe= 1
+command 0 next= 0x64c5cb1498d0
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+command 1 str =  grep abc 
+command 1 cmd = grep
+command 1 argument 0, value = grep
+command 1 argument 1, value = abc
+command 1 pipe= 1
+command 1 next= 0x64c5cb149910
+command 1 prev= 0x64c5cb149890
+command 1 fd_input= -1
+command 1 fd_output= (nil)
+
+
+command 2 str =  grep cde>file.txt
+command 2 cmd = grep
+command 2 argument 0, value = grep
+command 2 argument 1, value = cde
+command 2 pipe= 0
+command 2 next= (nil)
+command 2 prev= 0x64c5cb1498d0
+command 2 fd_input= -1
+command 2 fd_output= 0x64c5cb1499d0
+command 2 fd 0, value = 3
+
+
+Test for command: ls -ltr | grep abc > file2.txt | grep cde > file.txt
+command 0 str = ls -ltr 
+command 0 cmd = ls
+command 0 argument 0, value = ls
+command 0 argument 1, value = -ltr
+command 0 pipe= 1
+command 0 next= 0x64c5cb1498d0
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+command 1 str =  grep abc>file2.txt 
+command 1 cmd = grep
+command 1 argument 0, value = grep
+command 1 argument 1, value = abc
+command 1 pipe= 1
+command 1 next= 0x64c5cb149910
+command 1 prev= 0x64c5cb149890
+command 1 fd_input= -1
+command 1 fd_output= 0x64c5cb1499b0
+command 1 fd 0, value = 4
+
+
+command 2 str =  grep cde>file.txt
+command 2 cmd = grep
+command 2 argument 0, value = grep
+command 2 argument 1, value = cde
+command 2 pipe= 0
+command 2 next= (nil)
+command 2 prev= 0x64c5cb1498d0
+command 2 fd_input= -1
+command 2 fd_output= 0x64c5cb1499d0
+command 2 fd 0, value = 5
+
+
+Test for command: grep todo < todo
+command 0 str = grep todo<todo
+command 0 cmd = grep
+command 0 argument 0, value = grep
+command 0 argument 1, value = todo
+command 0 pipe= 0
+command 0 next= (nil)
+command 0 prev= (nil)
+command 0 fd_input= 6
+command 0 fd_output= (nil)
+-----test special situations-----
+
+
+Test for command: grep todo < Makefile < todo
+command 0 str = grep todo<Makefile<todo
+command 0 cmd = grep
+command 0 argument 0, value = grep
+command 0 argument 1, value = todo
+command 0 pipe= 0
+command 0 next= (nil)
+command 0 prev= (nil)
+command 0 fd_input= 7
+command 0 fd_output= (nil)
+
+
+Test for command: echo $VAR
+command 0 str = echo $VAR
+command 0 cmd = echo
+command 0 argument 0, value = echo
+command 0 argument 1, value = test
+command 0 pipe= 0
+command 0 next= (nil)
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+
+
+Test for command: echo '$VAR'
+command 0 str = echo '$VAR'
+command 0 cmd = echo
+command 0 argument 0, value = echo
+command 0 argument 1, value =  $VAR 
+command 0 pipe= 0
+command 0 next= (nil)
+command 0 prev= (nil)
+command 0 fd_input= -1
+command 0 fd_output= (nil)
+taj@Ubuntu20:
+taj@Ubuntu20:
+

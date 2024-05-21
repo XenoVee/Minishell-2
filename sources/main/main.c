@@ -17,6 +17,7 @@
 
 #include "minishell.h"
 #include "signals.h"
+#include "input.h"
 
 int	manage_input(void)
 {
@@ -36,7 +37,12 @@ int	manage_input(void)
 		free (input);
 		return (1);
 	}
-	printf("|%s|\n", input);
+	t_commands *cmds = input_parse(input);
+	if (cmds)
+	{
+		executor(cmds, 0);
+		free_cmds_memory(cmds);
+	}
 	free (input);
 	return (0);
 }

@@ -2,115 +2,22 @@
 // cc test_input.c  ../sources/input/ft_split.c ../sources/input/input_parse.c -I../includes/ -I../libraries/libftprintf/ -g -Wall -Wextra -Werror
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "input.h"
-void test_empty_cmd(void)
-{
-    t_commands *cmds = input_parse("");
-    if (cmds)
-        printf("test_empty_cmd failed\n");    
-
-    free_cmds_memory(cmds);
-}
-
-void test_single_cmd(void)
-{
-    t_commands *cmds = input_parse("ls -a -l");
-
-    if (!cmds)
-        printf("test_single_cmd failed\n");
-    
-    if (strcmp(cmds[0].cmd, "ls") != 0)
-        printf("test_single_cmd failed due to command mismatch\n");
-    
-    if (strcmp(cmds[0].args[0], "ls") != 0)
-        printf("test_single_cmd failed due to arg[0] mismatch\n");
-    
-    if (strcmp(cmds[0].args[1], "-a") != 0)
-        printf("test_single_cmd failed due to arg[1] mismatch\n");
-    
-    if (strcmp(cmds[0].args[2], "-l") != 0)
-        printf("test_single_cmd failed due to arg[2] mismatch\n");
-    
-    if (cmds[0].args[3] != 0)
-    {
-        printf("test_single_cmd failed due to arg[3] mismatch\n");
-    }
-	if (cmds[0].pipe != 0)
-        printf("test_single_cmd failed due to pipe mismatch\n");
-
-    if (cmds[0].next != 0)
-        printf("test_single_cmd failed due to next mismatch\n");
-
-    if (cmds[0].prev != 0)
-        printf("test_single_cmd failed due to prev mismatch\n");   
-
-    free_cmds_memory(cmds);
-}
-
-void test_two_cmd(void)
-{
-    t_commands *cmds = input_parse("ls -a -l | grep 123");
-
-    if (!cmds)
-        printf("test_two_cmd failed\n");
-    printf("-->Test cmds[0]\n");
-    if (strcmp(cmds[0].cmd, "ls") != 0)
-        printf("test_two_cmd failed due to command mismatch\n");
-    
-    if (strcmp(cmds[0].args[0], "ls") != 0)
-        printf("test_two_cmd failed due to arg[0] mismatch\n");
-    
-    if (strcmp(cmds[0].args[1], "-a") != 0)
-        printf("test_two_cmd failed due to arg[1] mismatch\n");
-    
-    if (strcmp(cmds[0].args[2], "-l") != 0)
-        printf("test_two_cmd failed due to arg[2] mismatch\n");
-    
-    if (cmds[0].args[3] != 0)
-    {
-        printf("test_two_cmd failed due to arg[3] mismatch\n");
-    }
-	if (cmds[0].pipe != 1)
-        printf("test_two_cmd failed due to pipe mismatch\n");
-
-    if (cmds[0].next == 0)
-        printf("test_two_cmd failed due to next mismatch\n");
-
-    if (cmds[0].prev != 0)
-        printf("test_two_cmd failed due to prev mismatch\n");
-    printf("-->Test cmds[1]\n");
-    if (strcmp(cmds[1].cmd, "grep") != 0)
-        printf("test_two_cmd failed due to command mismatch\n");
-    
-    if (strcmp(cmds[1].args[0], "grep") != 0)
-        printf("test_two_cmd failed due to arg[0] mismatch\n");
-    
-    if (strcmp(cmds[1].args[1], "123") != 0)
-        printf("test_two_cmd failed due to arg[1] mismatch\n");
-    
-    if (cmds[1].args[2] != 0)
-    {
-        printf("test_two_cmd failed due to arg[2] mismatch\n");
-    }
-	if (cmds[1].pipe != 0)
-        printf("test_two_cmd failed due to pipe mismatch\n");
-
-    if (cmds[1].next != 0)
-        printf("test_two_cmd failed due to next mismatch\n");
-
-    if (cmds[1].prev != &cmds[0])
-        printf("test_two_cmd failed due to prev mismatch\n");
-    
-    free_cmds_memory(cmds);
-}
 
 void test_with_print(char *input)
 {
     t_commands *cmds = input_parse(input);
     int i=0;
 
-    printf("Test for command: %s\n", input);
+    printf("\n\nTest for command: %s\n", input);
+
+    if (!cmds)
+    {
+        printf("input_parse function returned NULL cmds structure\n");
+        return;
+    }
     while (1)
     {
         printf("command %d str = %s\n", i, cmds[i].str);
@@ -124,14 +31,15 @@ void test_with_print(char *input)
         }
 
         printf("command %d pipe= %d\n", i, cmds[i].pipe);
-        printf("command %d next= 0x%x\n", i, cmds[i].next);
-        printf("command %d prev= 0x%x\n", i, cmds[i].prev);
+        printf("command %d next= %p\n", i, cmds[i].next);
+        printf("command %d prev= %p\n", i, cmds[i].prev);
         printf("command %d fd_input= %d\n", i, cmds[i].fd_input);
+        printf("command %d fd_output= %p\n", i, cmds[i].fd_output);
     
-        j=0;
         if (cmds[i].fd_output)
         {
-            while (cmds[i].fd_output[j])
+            j=0;
+            while (cmds[i].fd_output[j] != -1)
             {
                 printf("command %d fd %d, value = %d\n", i, j, cmds[i].fd_output[j]);
                 j++;
@@ -146,11 +54,28 @@ void test_with_print(char *input)
         i++;
         printf("\n\n");
     }
+    free_cmds_memory(cmds);
 }
 
-int main(int argc, char **argv)
+int main(void)
 {
-    test_with_print("grep    abc   123  <            /home/marghoob/rmaes_taj_minishell/test/abc  > xyz >   xyz1 |   grep taj 1>        ghijj  >   aw  >   qt    ");
-    //test_with_print(argv[1]);
+    test_with_print("");
+    test_with_print("ls");
+    test_with_print("ls -ltr");
+    test_with_print("ls -ltr | grep abc");
+    test_with_print("ls -ltr | grep abc | grep cde");
+    test_with_print("ls -ltr | grep abc | grep cde > file.txt");
+    test_with_print("ls -ltr | grep abc > file2.txt | grep cde > file.txt");
+    test_with_print("grep todo < todo");
+
+    printf("-----test special situations-----\n");
+    test_with_print("grep todo < Makefile < todo");
+    
+    if (setenv("VAR", "test", 1) == 0)
+    {
+        test_with_print("echo $VAR");
+    }
+    test_with_print("echo '$VAR'");
+
     return (0);
 }
