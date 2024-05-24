@@ -6,19 +6,21 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/25 13:21:34 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/22 13:20:40 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/05/24 15:19:51 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 
-static void	setpwd(t_dllist *env, char *n)
+static int	setpwd(t_dllist *env, char *n)
 {
 	char	*cwd;
 	int		i;
 
 	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		return (1);
 	i = envsearch(env, n);
 	if (i == -1)
 	{
@@ -33,6 +35,7 @@ static void	setpwd(t_dllist *env, char *n)
 			free (env->current->value);
 		env->current->value = cwd;
 	}
+	return (0);
 }
 
 static int	ereturn(char *rel)
@@ -59,15 +62,14 @@ int	bi_cd(t_dllist *env, t_commands *cmd)
 {
 	char	*rel;
 
-	setpwd(env, "OLDPWD");
-	if (cmd->args[0] != NULL)
+	if (setpwd(env, "OLDPWD") == 0 && cmd->args[1] != NULL)
 	{
 		rel = buildrel(cmd);
 		if (chdir(rel) != 0 && chdir(cmd->args[0]) != 0)
 			return (ereturn(rel));
 		free (rel);
 	}
-	if (cmd->args[0] == NULL)
+	else
 	{
 		if (chdir(ft_getenv(env, "HOME")) != 0)
 			return (ereturn(NULL));

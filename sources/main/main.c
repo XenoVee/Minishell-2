@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/03/21 14:01:06 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/05/24 15:49:58 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 #include "signals.h"
 #include "input.h"
 
-int	manage_input(void)
+int	manage_input(t_dllist *env)
 {
 	char		*input;
+	t_commands	*cmds;
 
 	toggle_intercept(OFF);
 	input = readline("[Minishell] ~$ ");
@@ -31,27 +32,32 @@ int	manage_input(void)
 		return (1);
 	}
 	add_history(input);
-	toggle_intercept(ON);
+	// toggle_intercept(ON);
 	if (!ft_strcmp(input, "exit"))
 	{
 		free (input);
 		return (1);
 	}
-	t_commands *cmds = input_parse(input);
+	cmds = input_parse(input);
 	if (cmds)
 	{
-		executor(cmds, 0);
+		executor(cmds, env);
 		free_cmds_memory(cmds);
 	}
 	free (input);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+	t_dllist	*env;
+
+	++argc;
+	++argv;
+	env = envcpy(envp);
 	while (1)
 	{
-		if (manage_input())
+		if (manage_input(env))
 			break ;
 	}
 }

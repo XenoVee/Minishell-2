@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 11:15:03 by rmaes         #+#    #+#                 */
-/*   Updated: 2023/06/29 17:19:19 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/05/24 14:47:58 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	export_list(t_dllist *env, int fd)
 	{
 		write(fd, "declare -x ", 11);
 		ft_putstr_fd(cpy[i], fd);
+		write(fd, "\n", 1);
 		i++;
 	}
 }
