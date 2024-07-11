@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/17 16:42:35 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/22 13:22:19 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/05/27 16:35:28 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putstr_fd(char *s, int fd);
-int 			ft_count_word(char const *s, char c);
+int				ft_count_word(char const *s, char c);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s1);
@@ -83,5 +83,6 @@ int				ft_digitcount(long int n);
 int				ft_digitcount_unsigned(unsigned long n);
 int				ft_is_negative(unsigned long n);
 int				ft_sign(int n);
+char			*ft_tristrjoin(char const *s1, char const *s2, char const *s3);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 11:15:03 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/05/24 14:47:58 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/07/11 14:35:25 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,40 @@ static void	export_list(t_dllist *env, int fd)
 	}
 }
 
-static void	addnewvar(t_dllist *env, char **s)
+static void	export(t_dllist *env, char **s, int i)
 {
-	cdl_listdecr(env);
-	cdl_listaddback(env, cdl_nodenew(s[0], s[1]));
-	cdl_listincr(env);
+	if (i == -1)
+	{
+		cdl_listdecr(env);
+		cdl_listaddback(env, cdl_nodenew(s[0], s[1]));
+		cdl_listincr(env);
+	}
+	else if (s[1])
+	{
+		env->current = cdl_listgetnode(env, i);
+		if (env->current->value)
+			free (env->current->value);
+		env->current->value = s[1];
+		free (s[0]);
+	}
 }
 
-static void	editvar(t_dllist *env, char **s, int i)
+static void	fix_quotes(char **s)
 {
-	env->current = cdl_listgetnode(env, i);
-	if (env->current->value)
-		free (env->current->value);
-	env->current->value = s[1];
-	free (s[0]);
+	char	*tmp;
+
+	if (s[1][0] == '"' && s[1][ft_strlen(s[1]) - 1] == s[1][0])
+	{
+		tmp = ft_strtrim(s[1], "\"");
+		free (s[1]);
+		s[1] = tmp;
+	}
+	else if (s[1][0] == '\'' && s[1][ft_strlen(s[1]) - 1] == s[1][0])
+	{
+		tmp = ft_strtrim(s[1], "\'");
+		free (s[1]);
+		s[1] = tmp;
+	}
 }
 
 void	bi_export(t_commands *cmd, t_dllist *env, int fd)
@@ -82,6 +102,7 @@ void	bi_export(t_commands *cmd, t_dllist *env, int fd)
 	int		i;
 
 	i = 1;
+	ft_printf("%s\n", cmd->str);
 	if (cmd->args[i] == NULL)
 	{
 		export_list(env, fd);
@@ -90,11 +111,14 @@ void	bi_export(t_commands *cmd, t_dllist *env, int fd)
 	while (cmd->args[i])
 	{
 		s = ft_split(cmd->args[i], '=');
+		ft_printf("%s\n", s[1]);
+		if (s[1][0] == '"' || s[1][0] == '\'')
+			fix_quotes(s);
 		n = envsearch(env, s[0]);
 		if (n == -1)
-			addnewvar(env, s);
+			export(env, s, n);
 		else if (s[1])
-			editvar(env, s, n);
+			export(env, s, n);
 		free (s);
 		i++;
 	}

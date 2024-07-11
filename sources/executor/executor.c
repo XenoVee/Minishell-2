@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/24 15:06:32 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/03/19 15:45:55 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/06/05 12:58:15 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	child(t_commands *cmd, int *pipenew, int *pipeold, t_dllist *env)
 		exit(0);
 	else
 	{
-		path = pathfinder(cmd->args[0]);
+		path = pathfinder(cmd->args[0], env);
 		if (path == NULL)
 			exit(1);
 		if (access(path, X_OK) != 0)

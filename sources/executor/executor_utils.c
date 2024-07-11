@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/02 18:50:31 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/12 11:00:07 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/06/05 13:06:08 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,27 @@ size_t	safestrlen(char *s)
 	return (i);
 }
 
-// checks if a given file exists
-char	*pathfinder(char *find)
+// adds current directory to list of places to look for executable
+static char	**find_paths(t_dllist *env)
 {
 	char	*path;
 	char	**split;
+
+	path = ft_tristrjoin(ft_getenv(env, "PATH"), ":", ft_getenv(env, "PWD"));
+	split = ft_split(path, ':');
+	return (split);
+}
+
+// checks if a given file exists
+char	*pathfinder(char *f, t_dllist *env)
+{
+	char	**split;
 	int		i;
 	char	*check;
+	char	*find;
 
-	path = getenv("PATH");
-	split = ft_split(path, ':');
-	find = ft_strjoin("/", find);
+	split = find_paths(env);
+	find = ft_strjoin("/", f);
 	i = 0;
 	while (split[i])
 	{

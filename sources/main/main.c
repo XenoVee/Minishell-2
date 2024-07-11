@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/05/24 15:49:58 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/06/05 13:00:01 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	manage_input(t_dllist *env)
 		return (1);
 	}
 	add_history(input);
-	// toggle_intercept(ON);
 	if (!ft_strcmp(input, "exit"))
 	{
 		free (input);
