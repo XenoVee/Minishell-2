@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 11:15:03 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/07/11 14:35:25 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/07/26 14:24:51 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ static void	export_list(t_dllist *env, int fd)
 		write(fd, "declare -x ", 11);
 		ft_putstr_fd(cpy[i], fd);
 		write(fd, "\n", 1);
+		free (cpy[i]);
 		i++;
 	}
+	free (cpy);
 }
 
 static void	export(t_dllist *env, char **s, int i)
@@ -102,7 +104,6 @@ void	bi_export(t_commands *cmd, t_dllist *env, int fd)
 	int		i;
 
 	i = 1;
-	ft_printf("%s\n", cmd->str);
 	if (cmd->args[i] == NULL)
 	{
 		export_list(env, fd);
@@ -111,7 +112,6 @@ void	bi_export(t_commands *cmd, t_dllist *env, int fd)
 	while (cmd->args[i])
 	{
 		s = ft_split(cmd->args[i], '=');
-		ft_printf("%s\n", s[1]);
 		if (s[1][0] == '"' || s[1][0] == '\'')
 			fix_quotes(s);
 		n = envsearch(env, s[0]);

@@ -6,11 +6,12 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 11:44:27 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/12 11:54:17 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/07/25 17:40:26 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "input.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -31,6 +32,8 @@ t_dllist	*envcpy(char **envp)
 		if (tmp == NULL)
 			error(ERR_MALLOC);
 		cdl_listaddback(env, cdl_nodenew(tmp[0], tmp[1]));
+		if (tmp[1])
+			free (tmp[2]);
 		free (tmp);
 		i++;
 	}

@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/02/23 16:00:43 by rmaes         ########   odam.nl          #
+#    Updated: 2024/07/25 17:03:24 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ EXECUTOR_DIR = executor/
 EXECUTOR_DF = $(addprefix $(EXECUTOR_DIR), $(EXECUTOR_FILES))
 
 SOURCES_DIR = sources/
-FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF) $(SIGNALS_DF) $(INPUT_PARSER_DF) input/ft_split.c
+FILES =	$(MAIN_DF) $(EXECUTOR_DF) $(UTILS_DF) $(ENVP_DF) $(SIGNALS_DF) $(INPUT_PARSER_DF)
 SOURCES = $(addprefix $(SOURCES_DIR), $(FILES))
 
 INCLUDES = includes -I/Users/rmaes/.brew/opt/readline/include -Ilibraries/libftprintf

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/02 18:50:31 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/06/05 13:06:08 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/07/25 17:58:49 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	**find_paths(t_dllist *env)
 
 	path = ft_tristrjoin(ft_getenv(env, "PATH"), ":", ft_getenv(env, "PWD"));
 	split = ft_split(path, ':');
+	free (path);
 	return (split);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/06/05 13:00:01 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/07/26 14:28:45 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ int	manage_input(t_dllist *env)
 
 	toggle_intercept(OFF);
 	input = readline("[Minishell] ~$ ");
-	if (!input)
+	if (!input || !ft_strcmp(input, "exit"))
 	{
 		free (input);
 		return (1);
+	}
+	if (input[0] == '\0')
+	{
+		free (input);
+		return (0);
 	}
 	add_history(input);
-	if (!ft_strcmp(input, "exit"))
-	{
-		free (input);
-		return (1);
-	}
-	cmds = input_parse(input);
+	cmds = input_parse(input, env);
 	if (cmds)
 	{
 		executor(cmds, env);
@@ -59,4 +59,5 @@ int	main(int argc, char **argv, char **envp)
 		if (manage_input(env))
 			break ;
 	}
+	cdl_listclear(env);
 }

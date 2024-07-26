@@ -6,7 +6,7 @@
 /*   By: athena <athena@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/13 13:05:43 by athena        #+#    #+#                 */
-/*   Updated: 2024/02/12 11:58:56 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/07/26 14:49:25 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 typedef struct s_dlnode
 {
 	struct s_dlnode	*prev;
-	char			*name;
-	char			*value;
+	void			*name;
+	void			*value;
 	struct s_dlnode	*next;
 }				t_dlnode;
 
