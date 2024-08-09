@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/06/05 12:37:24 by rmaes         ########   odam.nl          #
+#    Updated: 2024/08/09 18:03:06 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,18 +36,15 @@ FILES = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 		ft_digitcount.c ft_digitcount_unsigned.c ft_is_negative.c ft_strcmp.c \
 		ft_sign.c ft_tristrjoin.c
 PRINTF_FILES = ft_printf_utils.c ft_printf.c writes.c writes_2.c
-FPRINTF_FILES = ft_fprintf_utils.c ft_fprintf.c fwrites.c fwrites_2.c
 GNL_FILES = get_next_line.c get_next_line_utils.c \
 
 
 SOURCES = $(addprefix $(SOURCES_DIR), $(FILES))
 PRINTF_SOURCES = $(addprefix $(PRINTF_DIR), $(PRINTF_FILES))
-FPRINTF_SOURCES = $(addprefix $(FPRINTF_DIR), $(FPRINTF_FILES))
 GNL_SOURCES = $(addprefix $(GNL_DIR), $(GNL_FILES))
 
 OBJECTS = $(addprefix $(OBJECTS_DIR), $(FILES:.c=.o))
 PRINTF_OBJECTS = $(PRINTF_SOURCES:.c=.o)
-FPRINTF_OBJECTS = $(FPRINTF_SOURCES:.c=.o)
 GNL_OBJECTS = $(GNL_SOURCES:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
@@ -56,7 +53,7 @@ NAME = libft.a
 
 all: $(OBJECTS_DIR) $(NAME)
 
-$(NAME): $(OBJECTS) $(PRINTF_OBJECTS) $(GNL_OBJECTS) $(FPRINTF_OBJECTS)
+$(NAME): $(OBJECTS) $(PRINTF_OBJECTS) $(GNL_OBJECTS)
 	@echo "compiling: $(YELLOW)creating library$(DEFAULT)"
 	@ar -rcsu $@ $^
 	@echo "$(GREEN)$@ successfully compiled!$(DEFAULT)"
@@ -87,7 +84,7 @@ rmlib:
 
 clean:
 	@echo "cleaning:  $(RED)removing object files$(DEFAULT)"
-	@rm -f $(OBJECTS) $(GNL_OBJECTS) $(PRINTF_OBJECTS) $(FPRINTF_OBJECTS)
+	@rm -f $(OBJECTS) $(GNL_OBJECTS) $(PRINTF_OBJECTS)
 
 fclean: clean rmlib
 

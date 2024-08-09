@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/07/25 17:03:24 by rmaes         ########   odam.nl          #
+#    Updated: 2024/08/09 18:02:27 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,7 @@ MAIN_DIR = main/
 MAIN_DF = $(addprefix $(MAIN_DIR), $(MAIN_FILES))
 
 #input parser files
-INPUT_PARSER_FILES = input_parse.c \
-					 input_parse.c \
-					 input_parse_util.c \
-					 input_parse_pipes.c \
-					 input_parse_redirection.c
+INPUT_PARSER_FILES = input_parse.c
 INPUT_PARSER_DIR = input/
 INPUT_PARSER_DF = $(addprefix $(INPUT_PARSER_DIR), $(INPUT_PARSER_FILES))
 

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:37:57 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/07/26 14:47:46 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/09 18:09:12 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_commands
 	char				*str;
 	char				*cmd;
 	char				**args;
-	bool				pipe;
 	struct s_commands	*next;
 	struct s_commands	*prev;
 	int					fd_input;
