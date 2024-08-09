@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 19:08:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/09 19:22:08 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/09 19:30:56 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static t_dllist *split_command(char *command)
 	int			i;
 	int			l;
 	t_dllist	*lex;
+	char		c;
 
 	i = 0;
 	lex = cdl_listinit();
@@ -49,8 +50,9 @@ static t_dllist *split_command(char *command)
 			i++;
 		if (command[i] == '"' || command[i] == '\'')
 		{
+			c = command[i];
 			l++;
-			while (command[i + l] != '"' && command[i + l] != '\'')
+			while (command[i + l] != c)
 				l++;
 			l++;
 		}
