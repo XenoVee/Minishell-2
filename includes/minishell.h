@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:06 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/20 15:39:48 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/21 16:29:39 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,5 @@
 # include "builtins.h"
 # include "executor.h"
 # include "error.h"
-
-/*Functions*/
-
-/*utils*/
-
-/*string*/
-//char	*assign_string(char **str, t_token_type tkn);
-
-/*enviroment*/
-
-/*env*/
 
 #endif

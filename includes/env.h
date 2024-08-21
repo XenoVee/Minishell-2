@@ -6,13 +6,13 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/25 14:18:11 by rmaes         #+#    #+#                 */
-/*   Updated: 2023/06/25 14:30:50 by Owen          ########   odam.nl         */
+/*   Updated: 2024/08/21 16:38:44 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
-# include "../libraries/libftprintf/libft.h"
+# include "libft.h"
 # include "../libraries/cdl_list/include/cdl_list.h"
 
 t_dllist	*envcpy(char **envp);

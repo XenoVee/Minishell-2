@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:15 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/02/21 11:48:00 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/21 16:27:26 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 # define FAILURE 1
 
 /*global variable*/
-extern int		g_exit_code;
 
 /*Functions*/
-void	error(char *errmsg);
+void		error(char *errmsg);
 #endif
