@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:37:57 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/09 18:09:12 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/21 16:17:41 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ enum e_toggle
 {
 	OFF = 0,
 	ON,
+};
+
+enum e_lexer
+{
+	COMMAND = 0,
+	ARG,
+	INFILE,
+	OUTFILE,
+	OUTFILE_APPEND,
 };
 
 typedef struct s_commands

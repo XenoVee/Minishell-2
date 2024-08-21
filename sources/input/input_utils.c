@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input.h                                            :+:    :+:            */
+/*   input_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/23 15:58:05 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/21 16:12:08 by rmaes         ########   odam.nl         */
+/*   Created: 2024/08/21 16:08:18 by rmaes         #+#    #+#                 */
+/*   Updated: 2024/08/21 16:15:43 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_H
-# define INPUT_H
-# include "structs.h"
+#include "stdlib.h"
 
-// input_parse
-t_commands	*input_parse(char *input);
+// whitespace is: space ' ', tab '\t', carriage return '\r',
+// newline '\n', vertical tab ( '\v' ) and formfeed '\f'.
+int	ms_isspace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\r'
+		|| c == '\n' || c == '\v' || c == '\f')
+		return (1);
+	return (0);
+}
 
-// input_utils
-int			ms_isspace(char c);
-void		*num(int i);
+void	*num(int i)
+{
+	int	*o;
 
-// lexer
-void		lexer(char **array, t_commands *cmds);
-
-#endif
+	o = malloc(sizeof(int));
+	*o = i;
+	return (o);
+}
