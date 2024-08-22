@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/09 18:04:07 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 14:55:59 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,36 +19,36 @@
 #include "signals.h"
 #include "input.h"
 
-void	free_cmds_memory(t_commands *cmds)
-{
-	int	i;
-	int	j;
+// void	free_c_data_memory(t_comm_data *c_data)
+// {
+// 	int	i;
+// 	int	j;
 
-	if (!cmds)
-		return ;
-	i = 0;
-	while (1)
-	{
-		j = 0;
-		while (cmds[i].args[j])
-		{
-			free(cmds[i].args[j]);
-			j++;
-		}
-		free(cmds[i].args);
-		free(cmds[i].str);
-		free(cmds[i].fd_output);
-		if (!cmds[i].next)
-			break ;
-		i++;
-	}
-	free(cmds);
-}
+// 	if (!c_data)
+// 		return ;
+// 	i = 0;
+// 	while (1)
+// 	{
+// 		j = 0;
+// 		while (c_data[i].args[j])
+// 		{
+// 			free(c_data[i].args[j]);
+// 			j++;
+// 		}
+// 		free(c_data[i].args);
+// 		free(c_data[i].str);
+// 		free(c_data[i].fd_output);
+// 		if (!c_data[i].next)
+// 			break ;
+// 		i++;
+// 	}
+// 	free(c_data);
+// }
 
 int	manage_input(t_dllist *env)
 {
 	char		*input;
-	t_commands	*cmds;
+	t_comm_data	*c_data;
 
 	toggle_intercept(OFF);
 	input = readline("[Minishell] ~$ ");
@@ -63,11 +63,11 @@ int	manage_input(t_dllist *env)
 		return (0);
 	}
 	add_history(input);
-	cmds = input_parse(input);
-	if (cmds)
+	c_data = input_parse(input);
+	if (c_data || env)
 	{
-		executor(cmds, env);
-		free_cmds_memory(cmds);
+	// 	executor(c_data, env);
+	// 	free_c_data_memory(c_data);
 	}
 	free (input);
 	return (0);

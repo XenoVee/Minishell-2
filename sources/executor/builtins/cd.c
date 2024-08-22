@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/25 13:21:34 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/05/24 15:19:51 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 14:59:42 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,26 @@ static int	ereturn(char *rel)
 	return (1);
 }
 
-static char	*buildrel(t_commands *cmd)
+static char	*buildrel(t_comm_data *c_data)
 {
 	char	*rel;
 
 	rel = getcwd(NULL, 0);
-	rel = ft_realloc(rel, (ft_strlen(rel) + ft_strlen(cmd->args[1]) + 2));
+	rel = ft_realloc(rel, (ft_strlen(rel) + ft_strlen(c_data->cmd[1]) + 2));
 	ft_strlcat(rel, "/", ft_strlen(rel) + 2);
-	ft_strlcat(rel, cmd->args[1],
-		(ft_strlen(rel) + ft_strlen(cmd->args[1]) + 2));
+	ft_strlcat(rel, c_data->cmd[1],
+		(ft_strlen(rel) + ft_strlen(c_data->cmd[1]) + 2));
 	return (rel);
 }
 
-int	bi_cd(t_dllist *env, t_commands *cmd)
+int	bi_cd(t_dllist *env, t_comm_data *c_data)
 {
 	char	*rel;
 
-	if (setpwd(env, "OLDPWD") == 0 && cmd->args[1] != NULL)
+	if (setpwd(env, "OLDPWD") == 0 && c_data->cmd[1] != NULL)
 	{
-		rel = buildrel(cmd);
-		if (chdir(rel) != 0 && chdir(cmd->args[0]) != 0)
+		rel = buildrel(c_data);
+		if (chdir(rel) != 0 && chdir(c_data->cmd[0]) != 0)
 			return (ereturn(rel));
 		free (rel);
 	}

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 11:15:03 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/07/26 14:24:51 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 15:02:16 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,21 @@ static void	fix_quotes(char **s)
 	}
 }
 
-void	bi_export(t_commands *cmd, t_dllist *env, int fd)
+void	bi_export(t_comm_data *c_data, t_dllist *env, int fd)
 {
 	char	**s;
 	int		n;
 	int		i;
 
 	i = 1;
-	if (cmd->args[i] == NULL)
+	if (c_data->cmd[i] == NULL)
 	{
 		export_list(env, fd);
 		return ;
 	}
-	while (cmd->args[i])
+	while (c_data->cmd[i])
 	{
-		s = ft_split(cmd->args[i], '=');
+		s = ft_split(c_data->cmd[i], '=');
 		if (s[1][0] == '"' || s[1][0] == '\'')
 			fix_quotes(s);
 		n = envsearch(env, s[0]);

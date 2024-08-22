@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:37:57 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/21 16:17:41 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 14:28:23 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,18 @@ enum e_toggle
 enum e_lexer
 {
 	COMMAND = 0,
-	ARG,
 	INFILE,
 	OUTFILE,
 	OUTFILE_APPEND,
 };
 
-typedef struct s_commands
+typedef struct s_comm_data
 {
-	char				*str;
-	char				*cmd;
-	char				**args;
-	struct s_commands	*next;
-	struct s_commands	*prev;
+	char				**cmd;
+	struct s_comm_data	*next;
+	struct s_comm_data	*prev;
 	int					fd_input;
 	int					*fd_output;
-}		t_commands;
+}		t_comm_data;
 
 #endif

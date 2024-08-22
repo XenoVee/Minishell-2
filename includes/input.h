@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:58:05 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/21 16:12:08 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 14:24:27 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 # include "structs.h"
 
 // input_parse
-t_commands	*input_parse(char *input);
+t_comm_data	*input_parse(char *input);
+// void		parser(char **array, t_comm_data *cmds);
 
 // input_utils
 int			ms_isspace(char c);
 void		*num(int i);
 
 // lexer
-void		lexer(char **array, t_commands *cmds);
+t_dllist	*lexer(char *command);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:05:51 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 13:13:15 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 14:28:33 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	make_fill_node(t_dllist *lex, char *command, int mode)
 	return (l);
 }
 
-static t_dllist	*split_command(char *command)
+t_dllist	*lexer(char *command)
 {
 	int			i;
 	t_dllist	*lex;
@@ -60,24 +60,6 @@ static t_dllist	*split_command(char *command)
 			i += setmode(command, i, &mode);
 		}
 		i += make_fill_node(lex, &command[i], mode);
-		if (mode == COMMAND)
-			mode = ARG;
 	}
 	return (lex);
-}
-
-void	lexer(char **array, t_commands *cmds)
-{
-	t_dllist	*lex;
-
-	if (array[1] != NULL)
-	{
-		cmds->next = malloc(sizeof(t_commands) + 1);
-		cmds->next->prev = cmds;
-		lexer(&array[1], cmds->next);
-	}
-	else
-		cmds->next = NULL;
-	lex = split_command(array[0]);
-	cdl_listclear(lex);
 }

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/30 15:25:50 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/03/21 13:59:11 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 14:24:27 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // especially with the in/outfile handlers
 
 // runs in parent process
-void	endpipe(t_commands *cmd, int *pipenew, int *pipeold)
+void	endpipe(t_comm_data *cmd, int *pipenew, int *pipeold)
 {
 	if (cmd->prev)
 	{
@@ -33,7 +33,7 @@ void	endpipe(t_commands *cmd, int *pipenew, int *pipeold)
 // runs in child process
 // opens the pipes using dup(2);
 // pipe: array of two file descriptors. pipe[0] is read, pipe[1] is write
-void	startpipe(t_commands *cmd, int *pipenew, int *pipeold)
+void	startpipe(t_comm_data *cmd, int *pipenew, int *pipeold)
 {
 	if (cmd->fd_input != -1)
 	{
