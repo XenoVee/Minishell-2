@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:05:51 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/21 16:13:43 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 13:13:15 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static int	make_fill_node(t_dllist *lex, char *command, int mode)
 	return (l);
 }
 
-// new idea: cycle through whitespace until find special character
-// then act based on the found
 static t_dllist	*split_command(char *command)
 {
 	int			i;
