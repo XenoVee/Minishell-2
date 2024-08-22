@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/13 17:02:37 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/07/25 17:19:44 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 15:26:27 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	cdl_listdelnode(t_dllist *list, int n)
 	node = cdl_listpopnode(list, n);
 	free (node->name);
 	free (node->value);
-	free(node);
+	free (node);
 }

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 19:08:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 14:51:18 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 16:49:25 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ void	parse_cmd(t_comm_data *c_data, t_dllist *lex)
 	int	i;
 
 	i = 0;
-	// malloc (c_data->cmd);
-	lex->current = lex->head;
-	while (lex->current->value == COMMAND)
+	c_data->cmd = malloc ((sizeof(char *) * lex->arg_l) + 1);
+	while (lex->head && *(int *)lex->head->value == COMMAND)
 	{
 		// check_expansion
-		c_data->cmd[i] = lex->current->name;
-		lex->current->name = NULL;
-		lex->current = lex->current->next;
+		c_data->cmd[i] = lex->head->name;
+		lex->head->name = NULL;
+		cdl_listdelnode(lex, 0);
+		printf("\n%s\n\n", c_data->cmd[i]);
+		i++;
 	}
 }
 
@@ -51,9 +52,9 @@ void	parser(char **array, t_comm_data *c_data)
 	else
 		c_data->next = NULL;
 	lex = lexer(array[0]);
-	parse_cmd;
-	func_infiles;
-	func_outfiles;
+	parse_cmd(c_data, lex);
+	// func_infiles;
+	// func_outfiles;
 	cdl_listclear(lex);
 }
 

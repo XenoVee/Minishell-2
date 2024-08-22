@@ -6,7 +6,7 @@
 /*   By: athena <athena@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/13 13:05:43 by athena        #+#    #+#                 */
-/*   Updated: 2024/07/26 14:49:25 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 15:16:59 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_dlnode
 typedef struct s_dllist
 {
 	size_t		listlen;
+	size_t		arg_l;
 	t_dlnode	*head;
 	t_dlnode	*current;
 }				t_dllist;

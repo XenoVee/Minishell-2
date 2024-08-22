@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:15 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/21 16:27:26 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 16:48:29 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,6 @@
 
 /*Functions*/
 void		error(char *errmsg);
+void		parse_error(char *errmsg);
+
 #endif
