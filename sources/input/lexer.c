@@ -6,13 +6,12 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:05:51 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 16:57:37 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/22 16:44:38 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "input.h"
-#include "error.h"
 
 static int	setmode(char *c, int i, int *mode)
 {
@@ -39,12 +38,10 @@ static int	make_fill_node(t_dllist *lex, char *command, int mode)
 	{
 		if (command[l] == '"')
 			while (command[++l] != '"')
-				if (command[l] == '\0')
-					error("tmp");
-		if (command[l] == '\'')
+				;
+		else if (command[l] == '\'')
 			while (command[++l] != '\'')
-				if (command[l] == '\0')
-					error("tmp");
+				;
 		l++;
 	}
 	cdl_listaddback(lex, cdl_nodenew(ft_substr(command, 0, l), num(mode)));
@@ -58,8 +55,7 @@ static int	make_fill_node(t_dllist *lex, char *command, int mode)
 
 t_dllist	*lexer(char *command)
 {
-	size_t		i;
-	int			e;
+	int			i;
 	t_dllist	*lex;
 	int			mode;
 
@@ -74,15 +70,7 @@ t_dllist	*lexer(char *command)
 			i += setmode(command, i, &mode);
 		}
 		if (!(command[i] == '\0' && ms_isspace(command[i - 1])))
-		{
-			e = make_fill_node(lex, &command[i], mode);
-			if (e < 0)
-			{
-				cdl_listclear(lex);
-				return (NULL);
-			}
-			i += e;
-		}
+			i += make_fill_node(lex, &command[i], mode);
 	}
 	return (lex);
 }

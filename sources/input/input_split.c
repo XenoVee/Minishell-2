@@ -1,36 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split.c                                         :+:    :+:            */
+/*   input_split.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/12/17 16:42:02 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/23 17:06:58 by rmaes         ########   odam.nl         */
+/*   Created: 2024/08/23 17:07:24 by rmaes         #+#    #+#                 */
+/*   Updated: 2024/08/23 18:41:31 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "minishell.h"
 #include <stdlib.h>
 
-static int	word_count(char const *s, char c)
+static void	skipover_quotes(char const *s, int *i, int j)
+{
+	if (s[j + *i] == '"')
+		while (s[j + ++*i] != '"')
+			;
+	else if (s[j + *i] == '\'')
+		while (s[j + ++*i] != '\'')
+			;
+}
+
+static int	word_count(char const *s)
 {
 	int	i;
 	int	count;
 
+	// Unused pipe should do.. something. error probably
 	i = 0;
-	count = 0;
+	count = 1;
 	while (s[i])
 	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != c)
+		skipover_quotes(s, &i, 0);
+		if (s[i] == '|')
 			count++;
-		while (s[i] != c && s[i])
-			i++;
+		i++;
 	}
-	if (s[ft_strlen(s) - 1] == c)
-		count--;
+	printf("count: %i\n", count);
 	return (count);
 }
 
@@ -48,7 +56,7 @@ static void	*free_array(char **array, int count)
 	return (NULL);
 }
 
-static char	**split(char const *s, char c, char **array, int count)
+static char	**split(char const *s, char **array, int count)
 {
 	int	i;
 	int	j;
@@ -57,41 +65,34 @@ static char	**split(char const *s, char c, char **array, int count)
 	i = 0;
 	j = 0;
 	tmp = 0;
-	while (s[i] && j < count)
+	while (s[i + tmp] && j < count)
 	{
-		while (s[i] == c)
-			i++;
-		while (s[i + tmp] != c && s[i + tmp])
-			tmp++;
-		array[j] = ft_substr(&s[i], 0, tmp);
-		if (array[j] == 0)
-			return (free_array(array, j));
-		i = i + tmp;
-		j++;
-		tmp = 0;
+		skipover_quotes(s, &tmp, i);
+		tmp++;
+		if (s[i + tmp] == '|' || s[i + tmp] == '\0')
+		{
+			array[j] = ft_substr(&s[i], 0, tmp);
+			if (array[j] == 0)
+				return (free_array(array, j));
+			i += 1 + tmp;
+			j++;
+			tmp = 0;
+		}
 	}
 	return (array);
 }
 
-char	**ft_split(char const *s, char c)
+char	**input_split(char const *s)
 {
 	char	**array;
 	int		count;
 
-	if (!s)
-		return (0);
-	else if (!s[0])
-	{
-		array = ft_calloc(1, sizeof(char *));
-		if (array == 0)
-			return (0);
-		array[0] = 0;
-		return (array);
-	}
-	count = word_count(s, c);
+	if (!s[0])
+		return (NULL);
+	count = word_count(s);
 	array = ft_calloc((count + 1), sizeof(char *));
 	if (array == 0)
 		return (0);
 	array[count] = 0;
-	return (split(s, c, array, count));
+	return (split(s, array, count));
 }

@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/08/21 16:09:54 by rmaes         ########   odam.nl          #
+#    Updated: 2024/08/23 17:38:24 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MAIN_DIR = main/
 MAIN_DF = $(addprefix $(MAIN_DIR), $(MAIN_FILES))
 
 #input parser files
-INPUT_PARSER_FILES = input_parse.c lexer.c input_utils.c
+INPUT_PARSER_FILES = input_parse.c lexer.c input_utils.c input_split.c
 INPUT_PARSER_DIR = input/
 INPUT_PARSER_DF = $(addprefix $(INPUT_PARSER_DIR), $(INPUT_PARSER_FILES))
 

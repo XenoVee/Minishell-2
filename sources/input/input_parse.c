@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 19:08:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 16:49:25 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/23 18:22:23 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	parse_cmd(t_comm_data *c_data, t_dllist *lex)
 		c_data->cmd[i] = lex->head->name;
 		lex->head->name = NULL;
 		cdl_listdelnode(lex, 0);
-		printf("\n%s\n\n", c_data->cmd[i]);
+		printf("%s ", c_data->cmd[i]);
 		i++;
 	}
 }
@@ -53,6 +53,7 @@ void	parser(char **array, t_comm_data *c_data)
 		c_data->next = NULL;
 	lex = lexer(array[0]);
 	parse_cmd(c_data, lex);
+	printf("\n\n");
 	// func_infiles;
 	// func_outfiles;
 	cdl_listclear(lex);
@@ -63,7 +64,9 @@ t_comm_data	*input_parse(char *input)
 	char		**array;
 	t_comm_data	*c_data;
 
-	array = ft_split(input, '|');
+	array = input_split(input);
+	if (array == NULL)
+		return (NULL);
 	c_data = malloc(sizeof(t_comm_data) + 1);
 	parser(array, c_data);
 	return (c_data);
