@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 19:08:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 14:06:34 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 17:02:06 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_struct(t_comm_data *c_data)
 	c_data->fd_output = 0;
 }
 
-void	parse_cmd(t_comm_data *c_data, t_dllist *lex)
+static void	parse_cmd(t_comm_data *c_data, t_dllist *lex, t_dllist *env)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	parse_cmd(t_comm_data *c_data, t_dllist *lex)
 	c_data->cmd = malloc ((sizeof(char *) * lex->arg_l) + 1);
 	while (lex->head && *(int *)lex->head->value == COMMAND)
 	{
-		// check_expansion
+		check_expansion(c_data, lex->head, env);
 		c_data->cmd[i] = lex->head->name;
 		lex->head->name = NULL;
 		cdl_listdelnode(lex, 0);
@@ -39,7 +39,7 @@ void	parse_cmd(t_comm_data *c_data, t_dllist *lex)
 	}
 }
 
-void	parser(char **array, t_comm_data *c_data)
+static void	parser(char **array, t_comm_data *c_data, t_dllist *env)
 {
 	t_dllist	*lex;
 
@@ -47,19 +47,19 @@ void	parser(char **array, t_comm_data *c_data)
 	{
 		c_data->next = malloc(sizeof(t_comm_data) + 1);
 		c_data->next->prev = c_data;
-		parser(&array[1], c_data->next);
+		parser(&array[1], c_data->next, env);
 	}
 	else
 		c_data->next = NULL;
 	lex = lexer(array[0]);
-	parse_cmd(c_data, lex);
+	parse_cmd(c_data, lex, env);
 	printf("\n\n");
 	// func_infiles;
 	// func_outfiles;
 	cdl_listclear(lex);
 }
 
-t_comm_data	*input_parse(char *input)
+t_comm_data	*input_parse(char *input, t_dllist *env)
 {
 	char		**array;
 	t_comm_data	*c_data;
@@ -68,6 +68,6 @@ t_comm_data	*input_parse(char *input)
 	if (array == NULL)
 		return (NULL);
 	c_data = malloc(sizeof(t_comm_data) + 1);
-	parser(array, c_data);
+	parser(array, c_data, env);
 	return (c_data);
 }

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:15 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 14:34:35 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 15:29:46 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 /*Defines*/
 # define ERR_QUOTES		"Unclosed quotes"
+# define ERR_MALLOC		"Malloc call failed"
 
 # define SUCCES 0
 # define FAILURE 1

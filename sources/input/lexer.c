@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:05:51 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 14:06:37 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 15:38:26 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,7 @@ static int	make_fill_node(t_dllist *lex, char *command, int mode)
 	l = 0;
 	while (command[l] && !ms_isspace(command[l]))
 	{
-		if (command[l] == '"')
-			while (command[++l] != '"')
-				;
-		else if (command[l] == '\'')
-			while (command[++l] != '\'')
-				;
+		skipover_quotes(command, &l, 0);
 		l++;
 	}
 	cdl_listaddback(lex, cdl_nodenew(ft_substr(command, 0, l), num(mode)));

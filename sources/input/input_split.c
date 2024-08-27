@@ -6,28 +6,16 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/23 17:07:24 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 14:34:44 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 15:30:24 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "input.h"
 #include <stdlib.h>
 
-static int	skipover_quotes(char const *s, int *i, int j)
-{
-	char	c;
-
-	c = 0;
-	if (s[j + *i] == '"' || s[j + *i] == '\'')
-		c = s[j + *i];
-	while (s[j + ++*i] != c)
-		if (s[j + *i] == '\0')
-			return (1);
-	return (0);
-}
-
-	// Unused pipe should do.. something. error probably
-	// -> empty pipe means no imput.. empty input is ok (?)
+// Unused pipe should do.. something. error probably
+// -> empty pipe means no imput.. empty input is ok (?)
 static int	word_count(char const *s)
 {
 	int	i;
