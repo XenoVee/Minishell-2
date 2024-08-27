@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 14:55:59 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 14:30:33 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	manage_input(t_dllist *env)
 	c_data = input_parse(input);
 	if (c_data || env)
 	{
-	// 	executor(c_data, env);
-	// 	free_c_data_memory(c_data);
+		// executor(c_data, env);
+		// free_c_data_memory(c_data);
 	}
 	free (input);
 	return (0);

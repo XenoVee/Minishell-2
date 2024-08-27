@@ -6,34 +6,39 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/23 17:07:24 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/23 18:41:31 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 14:34:44 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
 
-static void	skipover_quotes(char const *s, int *i, int j)
+static int	skipover_quotes(char const *s, int *i, int j)
 {
-	if (s[j + *i] == '"')
-		while (s[j + ++*i] != '"')
-			;
-	else if (s[j + *i] == '\'')
-		while (s[j + ++*i] != '\'')
-			;
+	char	c;
+
+	c = 0;
+	if (s[j + *i] == '"' || s[j + *i] == '\'')
+		c = s[j + *i];
+	while (s[j + ++*i] != c)
+		if (s[j + *i] == '\0')
+			return (1);
+	return (0);
 }
 
+	// Unused pipe should do.. something. error probably
+	// -> empty pipe means no imput.. empty input is ok (?)
 static int	word_count(char const *s)
 {
 	int	i;
 	int	count;
 
-	// Unused pipe should do.. something. error probably
 	i = 0;
 	count = 1;
 	while (s[i])
 	{
-		skipover_quotes(s, &i, 0);
+		if (skipover_quotes(s, &i, 0))
+			return (-1);
 		if (s[i] == '|')
 			count++;
 		i++;
@@ -90,6 +95,8 @@ char	**input_split(char const *s)
 	if (!s[0])
 		return (NULL);
 	count = word_count(s);
+	if (count == -1)
+		return (parse_error(ERR_QUOTES));
 	array = ft_calloc((count + 1), sizeof(char *));
 	if (array == 0)
 		return (0);

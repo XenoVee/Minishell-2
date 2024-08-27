@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:15 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 16:48:29 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/08/27 14:34:35 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # include "../libraries/libftprintf/libft.h"
 
 /*Defines*/
-# define ERR_MALLOC		"Malloc call failed"
+# define ERR_QUOTES		"Unclosed quotes"
+
 # define SUCCES 0
 # define FAILURE 1
 
@@ -31,6 +32,6 @@
 
 /*Functions*/
 void		error(char *errmsg);
-void		parse_error(char *errmsg);
+void		*parse_error(char *errmsg);
 
 #endif
