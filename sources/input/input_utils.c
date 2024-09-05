@@ -6,11 +6,12 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:08:18 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 15:36:07 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/05 16:48:51 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdlib.h"
+#include "minishell.h"
 
 int	skipover_quotes(char const *s, int *i, int j)
 {
@@ -44,4 +45,27 @@ void	*num(int i)
 	o = malloc(sizeof(int));
 	*o = i;
 	return (o);
+}
+
+char	*find_var(char	*str, t_dllist *env)
+{
+	int		i;
+	char	c;
+	char	*s;
+
+	i = 0;
+	while (str[i] && !ms_isspace(str[i]) && str[i] != '"' && str[i] != '\'')
+	{
+		i++;
+	}
+	c = str[i];
+	str[i] = '\0';
+	s = ft_getenv(env, str);
+	str[i] = c;
+	if (s == NULL)
+	{
+		s = malloc(sizeof(char));
+		s[0] = '\0';
+	}
+	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 19:08:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 17:02:06 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/05 16:48:46 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	parser(char **array, t_comm_data *c_data, t_dllist *env)
 	lex = lexer(array[0]);
 	parse_cmd(c_data, lex, env);
 	printf("\n\n");
-	// func_infiles;
-	// func_outfiles;
 	cdl_listclear(lex);
 }
+	// func_infiles;
+	// func_outfiles;
 
 t_comm_data	*input_parse(char *input, t_dllist *env)
 {
