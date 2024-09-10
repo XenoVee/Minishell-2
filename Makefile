@@ -6,7 +6,7 @@
 #    By: rmaes <rmaes@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/06/13 17:19:52 by rmaes         #+#    #+#                  #
-#    Updated: 2024/08/27 17:23:29 by rmaes         ########   odam.nl          #
+#    Updated: 2024/09/10 14:05:47 by rmaes         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SIGNALS_DIR = signals/
 SIGNALS_DF = $(addprefix $(SIGNALS_DIR), $(SIGNALS_FILES))
 
 #utils files
-UTILS_FILES = error.c
+UTILS_FILES = error.c debug.c
 UTILS_DIR = utils/
 UTILS_DF = $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/27 16:53:09 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/05 16:48:35 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/10 15:28:36 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static int	find_expansion_len(t_dlnode *node, t_dllist *env)
 			i++;
 		}
 	}
-	printf("__\nLen of expanded string: %i\n", len);
 	return (len);
 }
 

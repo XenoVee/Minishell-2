@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:05:51 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 15:38:26 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/10 15:27:36 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static int	make_fill_node(t_dllist *lex, char *command, int mode)
 	if (mode == COMMAND)
 		lex->arg_l++;
 	lex->current = cdl_listgetnode(lex, lex->listlen - 1);
-	printf("%s\nMode:%i\n", (char *)lex->current->name,
-		*(int *)lex->current->value);
 	return (l);
 }
 
@@ -65,7 +63,10 @@ t_dllist	*lexer(char *command)
 			i += setmode(command, i, &mode);
 		}
 		if (!(command[i] == '\0' && ms_isspace(command[i - 1])))
+		{
 			i += make_fill_node(lex, &command[i], mode);
+			mode = COMMAND;
+		}
 	}
 	return (lex);
 }

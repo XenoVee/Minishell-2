@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/23 17:07:24 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/27 15:30:24 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/10 15:27:58 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	word_count(char const *s)
 			count++;
 		i++;
 	}
-	printf("count: %i\n", count);
 	return (count);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/02 18:50:31 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/07/25 17:58:49 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/10 15:49:54 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*pathfinder(char *f, t_dllist *env)
 		i++;
 	}
 	perror("minishell");
-	exit(1);
+	return (NULL);
 }
 
 // I handle the env as a list because it is many many times easier to edit.

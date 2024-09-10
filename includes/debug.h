@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   debug.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/02/20 15:38:06 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/10 16:05:18 by rmaes         ########   odam.nl         */
+/*   Created: 2024/02/20 15:38:15 by rmaes         #+#    #+#                 */
+/*   Updated: 2024/09/10 14:52:22 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef DEBUG_H
+# define DEBUG_H
 
 /*includes*/
-# include "../libraries/libftprintf/libft.h"
-# include "../libraries/cdl_list/include/cdl_list.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdbool.h>
-# include <stdlib.h>
 # include <errno.h>
-# include <limits.h>
-# include "structs.h"
-# include "builtins.h"
-# include "executor.h"
-# include "error.h"
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdbool.h>
+# include "../libraries/libftprintf/libft.h"
 
-# include "debug.h"
+/*Defines*/
+# define START 1
+# define END -1
+# define RESET 10
 
-void	free_c_data(t_comm_data *c_data);
+/*Functions*/
+void	logv(char *str, int m);
 
 #endif
