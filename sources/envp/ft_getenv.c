@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/05 15:04:06 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/10 15:28:40 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/12 15:09:37 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,13 @@ t_dlnode	*ft_getenvnode(t_dllist *env, char *var)
 char	*ft_getenv(t_dllist *env, char *var)
 {
 	t_dlnode	*node;
+	char		*test;
 
 	node = ft_getenvnode(env, var);
 	if (node == NULL)
 		return (NULL);
+	test = (char *)node->value;
+	if (test) // shut up
+		{};
 	return (node->value);
 }

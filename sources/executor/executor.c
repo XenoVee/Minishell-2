@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/24 15:06:32 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 15:07:37 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/13 15:17:00 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	builtin(t_comm_data *c_data, t_dllist *env)
 
 	fd = 2;
 	if (!c_data->next && !c_data->prev && c_data->fd_output)
-		fd = c_data->fd_output[0];
+		fd = c_data->fd_output;
 	if (!ft_strcmp("echo", c_data->cmd[0]))
 		bi_echo(c_data, fd);
 	else if (!ft_strcmp("cd", c_data->cmd[0]))
@@ -61,7 +61,7 @@ static void	child(t_comm_data *c_data, int *p_new, int *pipeold, t_dllist *env)
 		exit(0);
 	else
 	{
-		path = pathfinder(c_data->cmd[0], env);
+		path = pathfinder(c_data->cmd[0], env, 1);
 		if (path == NULL)
 			exit(1);
 		if (access(path, X_OK) != 0)

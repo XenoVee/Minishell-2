@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/02 18:50:31 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/10 15:49:54 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/13 15:52:19 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ static char	**find_paths(t_dllist *env)
 {
 	char	*path;
 	char	**split;
+	char	*mtp;
 
-	path = ft_tristrjoin(ft_getenv(env, "PATH"), ":", ft_getenv(env, "PWD"));
+	mtp = ft_getenv(env, "PWD");
+	path = ft_tristrjoin(ft_getenv(env, "PATH"), ":", mtp);
 	split = ft_split(path, ':');
 	free (path);
 	return (split);
 }
 
-// checks if a given file exists
-char	*pathfinder(char *f, t_dllist *env)
+// checks if a given file exists in the PATH or as relative path
+char	*pathfinder(char *f, t_dllist *env, int error)
 {
 	char	**split;
 	int		i;
@@ -63,7 +65,8 @@ char	*pathfinder(char *f, t_dllist *env)
 		free(check);
 		i++;
 	}
-	perror("minishell");
+	if (error)
+		perror("minishell");
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/10 16:11:56 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/13 15:05:35 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	print_c_data(t_comm_data *c_data)
 		printf("\n");
 		if (c_data->fd_input != 0)
 			printf("FD infile: %i\n", c_data->fd_input);
+		if (c_data->fd_output != 0)
+			printf("FD outfile: %i\n", c_data->fd_output);
 		j++;
 		c_data = c_data->next;
 	}
@@ -97,6 +99,10 @@ int	main(int argc, char **argv, char **envp)
 	++argc;
 	++argv;
 	env = envcpy(envp);
+	printf("COMMAND: %i\n", COMMAND);
+	printf("INFILE: %i\n", INFILE);
+	printf("OUTFILE: %i\n", OUTFILE);
+	printf("OUTFILE_APPEND: %i\n", OUTFILE_APPEND);
 	while (1)
 	{
 		if (manage_input(env))

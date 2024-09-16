@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/23 15:58:05 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/05 16:46:44 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/16 18:07:03 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ int			ms_isspace(char c);
 void		*num(int i);
 int			skipover_quotes(char const *s, int *i, int j);
 char		*find_var(char	*str, t_dllist *env);
+
+// open_files
+int			func_infiles(t_comm_data *c_data, t_dllist *lex, t_dllist *env);
+int			func_outfiles(t_comm_data *c_data, t_dllist *lex, t_dllist *env);
 
 // Expansion
 void		check_expansion(t_comm_data *c_data, t_dlnode *node, t_dllist *env);

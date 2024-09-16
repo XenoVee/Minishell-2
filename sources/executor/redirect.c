@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/30 15:25:50 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/08/22 14:24:27 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/13 15:17:36 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	startpipe(t_comm_data *cmd, int *pipenew, int *pipeold)
 	if (cmd->fd_output)
 	{
 		close(pipenew[0]);
-		dup2(cmd->fd_output[0], STDOUT);
+		dup2(cmd->fd_output, STDOUT);
 	}
 	else if (cmd->next)
 	{
