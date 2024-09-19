@@ -1,9 +1,11 @@
-Parser:
+// Parser:
+// 		Heredoc: Create temporart file? O_TMPFILE doesn't work on this system.
+// 					Problem: program closes mid operation.
+// 					otherwise: put into a pipe, perhaps
+// Lexer:
+// 		Handle unused pipes and quotes
 
-Lexer:
-	Handle unused pipes and quotes
+// Infile handler
 
-Infile handler
-
-Outfile handler
+// Outfile handler
 
