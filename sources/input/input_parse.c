@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/08 19:08:33 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/18 16:49:25 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/24 15:40:01 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ static void	func_cmd(t_comm_data *c_data, t_dllist *lex, t_dllist *env)
 	do_while = 0;
 	while ((do_while == 0) || lex->current != lex->head)
 	{
+		if (*(int *)lex->current->value != HEREDOC)
+			check_expansion(c_data, lex->current, env);
 		if (*(int *)lex->current->value == COMMAND)
 		{
-			check_expansion(c_data, lex->current, env);
 			c_data->cmd[i] = lex->current->name;
 			lex->current->name = NULL;
 			i++;
@@ -44,7 +45,7 @@ static t_comm_data	*run_lexer(char **array, t_comm_data *c_data, t_dllist *env)
 
 	lex = lexer(array[0]);
 	func_cmd(c_data, lex, env);
-	if (func_infiles(c_data, lex, env) || func_outfiles(c_data, lex, env) == -1)
+	if (func_infiles(c_data, lex, env) || func_outfiles(c_data, lex, env))
 	{
 		perror("Minishell");
 		free (c_data->cmd);

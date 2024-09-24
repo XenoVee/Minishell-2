@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/20 15:38:52 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/18 16:59:20 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/24 15:59:54 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	manage_input(t_dllist *env)
 	}
 	add_history(input);
 	c_data = input_parse(input, env);
-	// print_c_data(c_data);
 	if (c_data || env)
 	{
 		executor(c_data, env);
@@ -99,10 +98,6 @@ int	main(int argc, char **argv, char **envp)
 	++argc;
 	++argv;
 	env = envcpy(envp);
-	// printf("COMMAND: %i\n", COMMAND);
-	// printf("INFILE: %i\n", INFILE);
-	// printf("OUTFILE: %i\n", OUTFILE);
-	// printf("OUTFILE_APPEND: %i\n", OUTFILE_APPEND);
 	while (1)
 	{
 		if (manage_input(env))

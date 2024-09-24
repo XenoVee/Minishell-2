@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/21 16:05:51 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/13 15:30:25 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/19 18:29:27 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,12 @@
 
 static int	setmode(char *c, int i, int *mode)
 {
-	if (c[i] == '<')
+	if (c[i] == '<' && c[i + 1] == '<')
+	{
+		*mode = HEREDOC;
+		return (2);
+	}
+	else if (c[i] == '<')
 		*mode = INFILE;
 	else if (c[i] == '>' && c[i + 1] == '>')
 	{

@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/07 19:58:02 by rmaes         #+#    #+#                 */
-/*   Updated: 2022/10/19 17:27:54 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/24 16:01:59 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*loop(char	*ret, char *buf, int fd, int *i)
 
 	j = 0;
 	while ((*i != -1 || j == 0))
-	{	
+	{
 		*i = read_new(fd, buf, *i);
 		if (*i == -1 && ret == NULL)
 			return (NULL);
