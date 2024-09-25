@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/24 15:06:32 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/13 15:17:00 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/25 15:52:19 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 
 // if/elseifs to check if the command is a builtin. A builtin cannot be piped
 static int	builtin(t_comm_data *c_data, t_dllist *env)
@@ -55,7 +56,6 @@ static void	child(t_comm_data *c_data, int *p_new, int *pipeold, t_dllist *env)
 	char	*path;
 	char	**envp;
 
-	envp = NULL;
 	startpipe(c_data, p_new, pipeold);
 	if (builtin(c_data, env))
 		exit(0);
@@ -77,8 +77,10 @@ static void	child(t_comm_data *c_data, int *p_new, int *pipeold, t_dllist *env)
 // setup pipes, and create a child
 static int	execute(t_comm_data *cmd, t_dllist *env, int *pipenew, int *pipeold)
 {
-	int		pid;
+	int	pid;
+	int	status;
 
+	// status = 0;
 	if (cmd->next)
 		pipe(pipenew);
 	pid = fork();
@@ -86,7 +88,10 @@ static int	execute(t_comm_data *cmd, t_dllist *env, int *pipenew, int *pipeold)
 		child(cmd, pipenew, pipeold, env);
 	else
 	{
-		wait(NULL);
+		waitpid(pid, &status, 0);
+		// if (WIFEXITED(status))
+		// 	if (WEXITSTATUS(status) == 1)
+		// 		exit (0);
 		endpipe(cmd, pipenew, pipeold);
 	}
 	return (0);
@@ -100,14 +105,20 @@ int	executor(t_comm_data *cmd, t_dllist *env)
 	int	pipenew[2];
 	int	pipeold[2];
 
+	pipenew[0] = 0;
+	pipenew[1] = 0;
+	pipeold[0] = 0;
+	pipeold[1] = 0;
 	if (!(cmd->next) && builtin(cmd, env))
 		return (0);
 	else
 	{
+		while (cmd->next)
+			cmd = cmd->next;
 		while (cmd)
 		{
 			execute(cmd, env, pipenew, pipeold);
-			cmd = cmd->next;
+			cmd = cmd->prev;
 		}
 	}
 	return (0);

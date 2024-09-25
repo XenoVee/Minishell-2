@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/09/16 18:06:15 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/24 15:57:03 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/25 14:40:14 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	func_infiles(t_comm_data *c_data, t_dllist *lex, t_dllist *env)
 		do_while = 1;
 		lex->current = lex->current->next;
 	}
+	if (fd[0] == 0)
+		c_data->fd_input = -1;
 	return (0);
 }
 

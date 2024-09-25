@@ -6,24 +6,22 @@
 /*   By: rmaes <rmaes@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/30 15:25:50 by rmaes         #+#    #+#                 */
-/*   Updated: 2024/09/13 15:17:36 by rmaes         ########   odam.nl         */
+/*   Updated: 2024/09/25 16:02:47 by rmaes         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structs.h"
 #include "executor.h"
-// I feel like I close pipes too often, might need changes, have to test
-// especially with the in/outfile handlers
 
 // runs in parent process
 void	endpipe(t_comm_data *cmd, int *pipenew, int *pipeold)
 {
-	if (cmd->prev)
+	if (cmd->next)
 	{
 		close(pipeold[0]);
 		close(pipeold[1]);
 	}
-	if (cmd->next)
+	if (cmd->prev)
 	{
 		pipeold[0] = pipenew[0];
 		pipeold[1] = pipenew[1];
@@ -40,24 +38,21 @@ void	startpipe(t_comm_data *cmd, int *pipenew, int *pipeold)
 		dup2(cmd->fd_input, STDIN);
 		close(pipeold[1]);
 	}
-	else if (cmd->prev)
+	else if (cmd->next)
 	{
+		close(pipeold[1]);
 		dup2(pipeold[0], STDIN);
 		close(pipeold[0]);
-		close(pipeold[1]);
 	}
 	if (cmd->fd_output)
 	{
 		close(pipenew[0]);
 		dup2(cmd->fd_output, STDOUT);
 	}
-	else if (cmd->next)
+	else if (cmd->prev)
 	{
 		close(pipenew[0]);
 		dup2(pipenew[1], STDOUT);
 		close(pipenew[1]);
 	}
 }
-// handling multiple oufiles... Execve can only write into one FD.
-// Write into pipe, then copy from pipe to file?
-// send file to execve, copy from that file into the other files if theres more?
